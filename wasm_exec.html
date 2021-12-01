@@ -31,15 +31,13 @@ license that can be found in the LICENSE file.
 		WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
 			mod = result.module;
 			inst = result.instance;
-			document.getElementById("runButton").disabled = false;
+			go.run(inst).then(() => document.getElementById("runButton").disabled = false);
 		}).catch((err) => {
 			console.error(err);
 		});
 
 		async function run() {
-			console.clear();
-			await go.run(inst); // @oliverlj comment mettre en évidence qu'il await indéfiniment ?
-			inst = await WebAssembly.instantiate(mod, go.importObject); // reset instance
+			// call wasm function
 		}
 	</script>
 
